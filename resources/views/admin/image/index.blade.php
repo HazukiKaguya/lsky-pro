@@ -365,7 +365,7 @@
 
             $('.item').click(function () {
                 let image = $(this).data('json');
-                let html = $('#image-tpl').html()
+                let htm = $('#image-tpl').html()
                     .replace(/__id__/g, image.id)
                     .replace(/__url__/g, image.url)
                     .replace(/__user_name__/g, image.user ? image.user.name+'('+image.user.email+')' : '游客')
@@ -386,10 +386,32 @@
                     .replace(/__is_unhealthy__/g, image.is_unhealthy ? '<span class="text-red-500"><i class="fas fa-exclamation-triangle"></i> 是</span>' : '否')
                     .replace(/__uploaded_ip__/g, image.uploaded_ip)
                     .replace(/__created_at__/g, image.created_at);
+                let checkstr=image.url;
+                let check1="webm";
+                let check2="mp4";
+                if (checkstr.match(check1)){
+                    let html=htm
+                    .replace(/<img/g, "<video")
+                    .replace(/class="w-full object-center object-cover">/g, "class=\"w-full object-center object-cover\" controls/>");
 
                 $('#modal-content').html(html);
 
                 modal.open('content-modal')
+                }else if(checkstr.match(check2)){
+                    let html=htm
+                    .replace(/<img/g, "<video")
+                    .replace(/class="w-full object-center object-cover">/g, "class=\"w-full object-center object-cover\" controls/>");
+
+                $('#modal-content').html(html);
+
+                modal.open('content-modal')
+                }else{
+                    let html = htm;
+
+                $('#modal-content').html(html);
+
+                modal.open('content-modal')
+                }
             });
 
             $('.item-user').click(function (e) {
