@@ -413,21 +413,21 @@
                 modal.open('content-modal')
                 }
                 else if(checkstr.match(check3)){
-                    let html=htm.replace(/__url__/g, "https://up.inari.site/thumbnails/"+image.md5+".png");
+                    let html=htm.replace(/__url__/g, "/thumbnails/"+image.md5+".png");
 
                 $('#modal-content').html(html);
 
                 modal.open('content-modal')
                 }
                 else if(checkstr.match(check4)){
-                    let html=htm.replace(/__url__/g, "https://up.inari.site/thumbnails/"+image.md5+".png");
+                    let html=htm.replace(/__url__/g, "/thumbnails/"+image.md5+".png");
 
                 $('#modal-content').html(html);
 
                 modal.open('content-modal')
                 }
                 else if(checkstr.match(check5)){
-                    let html=htm.replace(/__url__/g, "https://up.inari.site/thumbnails/"+image.md5+".png");
+                    let html=htm.replace(/__url__/g, "/thumbnails/"+image.md5+".png");
 
                 $('#modal-content').html(html);
 
