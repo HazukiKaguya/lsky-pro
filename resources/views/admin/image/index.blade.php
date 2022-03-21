@@ -385,13 +385,13 @@
                     .replace(/__is_unhealthy__/g, image.is_unhealthy ? '<span class="text-red-500"><i class="fas fa-exclamation-triangle"></i> 是</span>' : '否')
                     .replace(/__uploaded_ip__/g, image.uploaded_ip)
                     .replace(/__created_at__/g, image.created_at);
-                // 检查是否为视频或者无法预览的psd、tif、bmp.
+                // 检查是否为视频或者无法预览的psd、tif、tiff.
                 let checkstr=image.url;
                 let check1="webm";
                 let check2="mp4";
                 let check3="psd";
                 let check4="tif";
-                let check5="bmp";
+                let check5="tiff";
                 if (checkstr.match(check1)){
                     let html=htm
                     .replace(/__url__/g, image.url)
