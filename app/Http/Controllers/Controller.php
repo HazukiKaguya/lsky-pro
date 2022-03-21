@@ -182,6 +182,11 @@ class Controller extends BaseController
         if ($image->extension === 'ico') {
             goto out;
         }
+        
+        //webm、mp4视频直接输出，不经过 InterventionImage 处理
+        if (in_array($image->extension, ['webm', 'mp4'])) {
+            goto out;
+        }
 
         // 浏览器无法预览的图片，改为 png 格式输出
         if (in_array($image->extension, ['psd', 'tif', 'bmp'])) {
