@@ -224,8 +224,10 @@ class ImageService
             }
         }
 
-        // 生成缩略图
+        // 仅为psd、tif、bmp生成缩略图
+        if (in_array($image->extension, ['psd', 'tif', 'bmp'])) {
         $this->makeThumbnail($image, $file);
+        }else;
 
         return $image;
     }
