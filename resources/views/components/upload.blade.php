@@ -115,7 +115,7 @@
         let $links = $('#links-container');
         let $picker = $('#picker');
         let queue = []; // 文件队列
-        let excludes = ['psd', 'tif']; // 排除支持预览的格式
+        let excludes = ['psd', 'tif', 'tiff', 'webm', 'mp4', 'mp3', 'ogg', 'wav']; // 排除支持预览的格式
         /**
          * 设置状态
          * @param data
