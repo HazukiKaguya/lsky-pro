@@ -22,8 +22,41 @@
                         @if($image->extension === 'gif')
                             <span class="bg-white rounded-md text-sm px-1 py-0">Gif</span>
                         @endif
+                        @if($image->extension === 'webm')
+                            <span class="bg-white rounded-md text-sm px-1 py-0">Video</span>
+                        @endif
+                        @if($image->extension === 'mp4')
+                            <span class="bg-white rounded-md text-sm px-1 py-0">Video</span>
+                        @endif
+                        @if($image->extension === 'mp3')
+                            <span class="bg-white rounded-md text-sm px-1 py-0">Sound</span>
+                        @endif
+                        @if($image->extension === 'ogg')
+                            <span class="bg-white rounded-md text-sm px-1 py-0">Sound</span>
+                        @endif
                     </div>
-                    <img class="w-full h-36 object-cover transition-all group-hover:brightness-50" src="{{ $image->thumb_url }}">
+                    //针对tif,psd 使用缩略图，其他均使用源文件
+                    @if($image->extension === 'webm')
+                    <video class="w-full h-36 object-cover transition-all group-hover:brightness-50" src="{{ $image->url }} " controls/>
+                    @endif
+                    @if($image->extension === 'mp4')
+                    <video class="w-full h-36 object-cover transition-all group-hover:brightness-50" src="{{ $image->url }} " controls/>
+                    @endif
+                    @if($image->extension === 'mp3')
+                    <video class="w-full h-36 object-cover transition-all group-hover:brightness-50" src="{{ $image->url }} " controls/>
+                    @endif
+                    @if($image->extension === 'ogg')
+                    <video class="w-full h-36 object-cover transition-all group-hover:brightness-50" src="{{ $image->url }} " controls/>
+                    @endif
+                    <img class="w-full h-36 object-cover transition-all group-hover:brightness-50" 
+                    @if($image->extension === 'tif')
+                    src="{{ $image->thumb_url }}"
+                    @elseif($image->extension === 'psd')
+                    src="{{ $image->thumb_url }}"
+                    @else
+                    src="{{ $image->url }}"
+                    @endif
+                    >
 
                     <div class="absolute top-2 right-2 space-x-1 hidden group-hover:flex">
                         <i data-id="{{ $image->id }}" class="delete fas fa-trash text-red-500 w-4 h-4"></i>
@@ -354,7 +387,7 @@
             $('.item').click(function () {
                 let image = $(this).data('json');
                 let previewUrl = ['psd', 'tif'].indexOf(image.extension) === -1 ? image.url : image.thumb_url;
-                let html = $('#image-tpl').html()
+                let htm = $('#image-tpl').html()
                     .replace(/__id__/g, image.id)
                     .replace(/__url__/g, previewUrl)
                     .replace(/__user_name__/g, image.user ? image.user.name+'('+image.user.email+')' : '游客')
@@ -374,11 +407,76 @@
                     .replace(/__permission__/g, image.permission === {{ \App\Enums\ImagePermission::Public }} ? '<i class="fas fa-eye text-red-500"></i> 公开' : '<i class="fas fa-eye-slash text-green-500"></i> 私有')
                     .replace(/__is_unhealthy__/g, image.is_unhealthy ? '<span class="text-red-500"><i class="fas fa-exclamation-triangle"></i> 是</span>' : '否')
                     .replace(/__uploaded_ip__/g, image.uploaded_ip)
-                    .replace(/__created_at__/g, image.created_at);
-
-                $('#modal-content').html(html);
-
-                modal.open('content-modal')
+                    // 检查是否为视频或者无法预览的psd、tif
+                    let checkstr=image.url;
+                    let check1="webm";
+                    let check2="mp4";
+                    let check3="psd";
+                    let check4="tif";
+                    let check5="mp3";
+                    let check6="ogg";
+                    let check7="wav";
+                    let check8="tiff";
+                    if (checkstr.match(check1)){
+                        let html=htm
+                        .replace(/__url__/g, image.url)
+                        .replace(/<img/g, "<video")
+                        .replace(/class="w-full object-center object-cover">/g, "class=\"w-full object-center object-cover\" controls/>");
+                    $('#modal-content').html(html);
+                    modal.open('content-modal')
+                    }
+                    else if(checkstr.match(check2)){
+                        let html=htm
+                        .replace(/__url__/g, image.url)
+                        .replace(/<img/g, "<video")
+                        .replace(/class="w-full object-center object-cover">/g, "class=\"w-full object-center object-cover\" controls/>");
+                    $('#modal-content').html(html);
+                    modal.open('content-modal')
+                    }
+                    else if(checkstr.match(check3)){
+                        let html=htm.replace(/__url__/g, "/thumbnails/"+image.md5+".png");
+                    $('#modal-content').html(html);
+                    modal.open('content-modal')
+                    }
+                    else if(checkstr.match(check4)){
+                        let html=htm.replace(/__url__/g, "/thumbnails/"+image.md5+".png");
+                    $('#modal-content').html(html);
+                    modal.open('content-modal')
+                    }
+                    else if(checkstr.match(check8)){
+                        let html=htm.replace(/__url__/g, "/thumbnails/"+image.md5+".png");
+                    $('#modal-content').html(html);
+                    modal.open('content-modal')
+                    }
+                    else if(checkstr.match(check5)){
+                        let html=htm
+                        .replace(/__url__/g, image.url)
+                        .replace(/<img/g, "<audio")
+                        .replace(/class="w-full object-center object-cover">/g, "class=\"w-full object-center object-cover\" controls/>");
+                    $('#modal-content').html(html);
+                    modal.open('content-modal')
+                    }
+                    else if(checkstr.match(check6)){
+                        let html=htm
+                        .replace(/__url__/g, image.url)
+                        .replace(/<img/g, "<audio")
+                        .replace(/class="w-full object-center object-cover">/g, "class=\"w-full object-center object-cover\" controls/>");
+                    $('#modal-content').html(html);
+                    modal.open('content-modal')
+                    }
+                    else if(checkstr.match(check7)){
+                        let html=htm
+                        .replace(/__url__/g, image.url)
+                        .replace(/<img/g, "<audio")
+                        .replace(/class="w-full object-center object-cover">/g, "class=\"w-full object-center object-cover\" controls/>");
+                    $('#modal-content').html(html);
+                    modal.open('content-modal')
+                    }
+                    else{
+                        let html = htm.replace(/__url__/g, image.url);
+                    $('#modal-content').html(html);
+                    modal.open('content-modal')
+                    }
             });
 
             $('.item-user').click(function (e) {

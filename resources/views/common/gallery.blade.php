@@ -13,10 +13,40 @@
                 <div class="grid-item">
                     <div class="relative bg-white rounded-md overflow-hidden">
                         @if($image->extension === 'gif')
-                            <span class="absolute top-1 right-1 z-[1] bg-white rounded-md text-sm px-1 py-0">Gif</span>
+                            <span class="absolute top-1 right-1 z-[1] bg-white rounded-md text-sm px-1 py-0">gif</span>
+                        @endif
+                        @if($image->extension === 'webm')
+                            <span class="absolute top-1 right-1 z-[1] bg-white rounded-md text-sm px-1 py-0">webm</span>
+                        @endif    
+                        @if($image->extension === 'mp4')
+                            <span class="absolute top-1 right-1 z-[1] bg-white rounded-md text-sm px-1 py-0">mp4</span>
+                        @endif
+                        @if($image->extension === 'mp3')
+                            <span class="absolute top-1 right-1 z-[1] bg-white rounded-md text-sm px-1 py-0">mp3</span>
+                        @endif    
+                        @if($image->extension === 'ogg')
+                            <span class="absolute top-1 right-1 z-[1] bg-white rounded-md text-sm px-1 py-0">ogg</span>
+                        @endif
+                        @if($image->extension === 'wav')
+                            <span class="absolute top-1 right-1 z-[1] bg-white rounded-md text-sm px-1 py-0">paf</span>
                         @endif
                         <a target="_blank" href="{{ $image->url }}">
                             <div class="relative overflow-hidden w-full h-32">
+                                @if($image->extension === 'webm')
+                                <video class="grow object-cover object-center w-full h-full" src="{{ $image->url }} " controls/>
+                                @endif
+                                @if($image->extension === 'mp4')
+                                <video class="grow object-cover object-center w-full h-full" src="{{ $image->url }} " controls/>
+                                @endif
+                                @if($image->extension === 'mp3')
+                                <audio class="grow object-cover object-center w-full h-full" src="{{ $image->url }} " controls/>
+                                @endif
+                                @if($image->extension === 'ogg')
+                                <audio class="grow object-cover object-center w-full h-full" src="{{ $image->url }} " controls/>
+                                @endif
+                                @if($image->extension === 'wav')
+                                <audio class="grow object-cover object-center w-full h-full" src="{{ $image->url }} " controls/>
+                                @endif
                                 <img class="grow object-cover object-center w-full h-full" src="{{ $image->thumb_url }}"/>
                             </div>
                         </a>

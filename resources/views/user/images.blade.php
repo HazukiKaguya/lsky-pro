@@ -267,6 +267,83 @@
 
                     let html = '';
                     for (const i in images) {
+                        let checkstr=JSON.stringify(images[i]);
+                        let check1="webm";
+                        let check2="mp4";
+                        let check3="mp3";
+                        let check4="ogg";
+                        let check4="wav";
+                        if (checkstr.match(check1)){
+                            html += $('#images-item-tpl').html()
+                            .replace(/__id__/g, images[i].id)
+                            .replace(/__name__/g, images[i].filename)
+                            .replace(/__human_date__/g, images[i].human_date)
+                            .replace(/__date__/g, images[i].date)
+                            .replace(/__url__/g, images[i].url)
+                            .replace(/__thumb_url__/g, images[i].thumb_url)
+                            .replace(/__width__/g, images[i].width)
+                            .replace(/__height__/g, images[i].height)
+                            .replace(/__json__/g, JSON.stringify(images[i]))
+                            .replace(/<img/g,"<video")
+                            
+                        }
+                        else if (checkstr.match(check2)){
+                            html += $('#images-item-tpl').html()
+                            .replace(/__id__/g, images[i].id)
+                            .replace(/__name__/g, images[i].filename)
+                            .replace(/__human_date__/g, images[i].human_date)
+                            .replace(/__date__/g, images[i].date)
+                            .replace(/__url__/g, images[i].url)
+                            .replace(/__thumb_url__/g, images[i].thumb_url)
+                            .replace(/__width__/g, images[i].width)
+                            .replace(/__height__/g, images[i].height)
+                            .replace(/__json__/g, JSON.stringify(images[i]))
+                            .replace(/<img/g,"<video")
+                            
+                        }
+                        else if (checkstr.match(check3)){
+                            html += $('#images-item-tpl').html()
+                            .replace(/__id__/g, images[i].id)
+                            .replace(/__name__/g, images[i].filename)
+                            .replace(/__human_date__/g, images[i].human_date)
+                            .replace(/__date__/g, images[i].date)
+                            .replace(/__url__/g, images[i].url)
+                            .replace(/__thumb_url__/g, images[i].thumb_url)
+                            .replace(/__width__/g, images[i].width)
+                            .replace(/__height__/g, images[i].height)
+                            .replace(/__json__/g, JSON.stringify(images[i]))
+                            .replace(/<img/g,"<audio")
+                            
+                        }
+                        else if (checkstr.match(check4)){
+                            html += $('#images-item-tpl').html()
+                            .replace(/__id__/g, images[i].id)
+                            .replace(/__name__/g, images[i].filename)
+                            .replace(/__human_date__/g, images[i].human_date)
+                            .replace(/__date__/g, images[i].date)
+                            .replace(/__url__/g, images[i].url)
+                            .replace(/__thumb_url__/g, images[i].thumb_url)
+                            .replace(/__width__/g, images[i].width)
+                            .replace(/__height__/g, images[i].height)
+                            .replace(/__json__/g, JSON.stringify(images[i]))
+                            .replace(/<img/g,"<audio")
+                            
+                        }
+                        else if (checkstr.match(check5)){
+                            html += $('#images-item-tpl').html()
+                            .replace(/__id__/g, images[i].id)
+                            .replace(/__name__/g, images[i].filename)
+                            .replace(/__human_date__/g, images[i].human_date)
+                            .replace(/__date__/g, images[i].date)
+                            .replace(/__url__/g, images[i].url)
+                            .replace(/__thumb_url__/g, images[i].thumb_url)
+                            .replace(/__width__/g, images[i].width)
+                            .replace(/__height__/g, images[i].height)
+                            .replace(/__json__/g, JSON.stringify(images[i]))
+                            .replace(/<img/g,"<audio")
+                            
+                        }
+                        else{
                         html += $('#images-item-tpl').html()
                             .replace(/__id__/g, images[i].id)
                             .replace(/__name__/g, images[i].filename)
@@ -277,6 +354,7 @@
                             .replace(/__width__/g, images[i].width)
                             .replace(/__height__/g, images[i].height)
                             .replace(/__json__/g, JSON.stringify(images[i]))
+                        }
                     }
 
                     $photos.append(html);

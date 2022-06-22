@@ -228,8 +228,8 @@ class ImageService
             throw new UploadException('图片记录保存失败');
         }
 
-        // 图片检测，跳过 tif、ico 以及 psd 格式
-        if ($configs->get(GroupConfigKey::IsEnableScan) && ! in_array($extension, ['psd', 'ico', 'tif'])) {
+        // 图片检测，跳过 tif、ico 、psd、webm、mp4、mp3、ogg以及 wav 格式
+        if ($configs->get(GroupConfigKey::IsEnableScan) && ! in_array($extension, ['psd', 'ico', 'tif', 'tiff', 'webm', 'mp4', 'mp3', 'ogg', 'wav'])) {
             $scanConfigs = $configs->get(GroupConfigKey::ScanConfigs);
             if ($this->scan(
                 driver: $scanConfigs['driver'],
@@ -249,9 +249,11 @@ class ImageService
             }
         }
 
-        // 生成缩略图
-        $this->makeThumbnail($image, $file);
-
+        // 仅为psd、tif、bmp生成缩略图
+        if (in_array($image->extension, ['psd', 'tif', 'tiff', 'bmp'])) {
+            $this->makeThumbnail($image, $file);
+            }
+        else;
         return $image;
     }
 

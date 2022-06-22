@@ -161,11 +161,11 @@ class Controller extends BaseController
                 $contents = $image->filesystem()->read($image->pathname);
                 $configs = collect($image->group?->configs->get(GroupConfigKey::WatermarkConfigs));
 
-                // 是否启用了水印功能，跳过gif和ico图片
+                // 是否启用了水印功能，跳过gif和ico图片,webm和mp4视频，mp3和ogg音频
                 if (
                     $image->group?->configs->get(GroupConfigKey::IsEnableWatermark) &&
                     $configs->get('mode', Mode::Overlay) == Mode::Dynamic &&
-                    ! in_array($image->extension, ['ico', 'gif'])
+                    ! in_array($image->extension, ['ico', 'gif', 'webm', 'mp4', 'mp3', 'ogg'])
                 ) {
                     $contents = $service->stickWatermark($contents, $configs)->encode()->getEncoded();
                 }
@@ -184,13 +184,13 @@ class Controller extends BaseController
 
         $mimetype = $image->mimetype;
 
-        // ico 图片直接输出，不经过 InterventionImage 处理
-        if ($image->extension === 'ico') {
+        //ico 图片，webm和mp4视频，mp3和ogg音频直接输出，不经过 InterventionImage 处理
+        if (in_array($image->extension, ['ico', 'webm', 'mp4', 'mp3', 'ogg', 'wav'])) {
             goto out;
         }
 
         // 浏览器无法预览的图片，改为 png 格式输出
-        if (in_array($image->extension, ['psd', 'tif', 'bmp'])) {
+        if (in_array($image->extension, ['psd', 'tif', 'tiff', 'bmp'])) {
             $mimetype = 'image/png';
             $contents = InterventionImage::make($contents)->encode('png')->getEncoded();
         }
