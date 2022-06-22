@@ -212,15 +212,12 @@
                 border: 10,
                 waitThumbnailsLoad: false,
             };
-
             let selectedAlbum = {}; // 选择的相册
-
             const HEADER_TITLE = '#header-title';
             const IMAGES_SCROLL = '#images-scroll';
             const IMAGES_GRID = '#images-grid';
             const IMAGES_ITEM = '.images-item';
             const ALBUM_ITEM = '.albums-item';
-
             const $headerTitle = $(HEADER_TITLE);
             const $photos = $(IMAGES_GRID);
             const $drawer = $("#drawer");
@@ -248,9 +245,7 @@
                     }
                 }
             }
-
             $photos.justifiedGallery(gridConfigs);
-
             let albumsInfinite = null;
             const imagesInfinite = utils.infiniteScroll(IMAGES_SCROLL, {
                 url: '{{ route('user.images') }}',
@@ -259,91 +254,12 @@
                     if (!response.status) {
                         return toastr.error(response.message);
                     }
-
                     let images = response.data.images.data;
                     if (images.length <= 0 || response.data.images.current_page === response.data.images.last_page) {
                         this.finished = true;
                     }
-
                     let html = '';
                     for (const i in images) {
-                        let checkstr=JSON.stringify(images[i]);
-                        let check1="webm";
-                        let check2="mp4";
-                        let check3="mp3";
-                        let check4="ogg";
-                        let check4="wav";
-                        if (checkstr.match(check1)){
-                            html += $('#images-item-tpl').html()
-                            .replace(/__id__/g, images[i].id)
-                            .replace(/__name__/g, images[i].filename)
-                            .replace(/__human_date__/g, images[i].human_date)
-                            .replace(/__date__/g, images[i].date)
-                            .replace(/__url__/g, images[i].url)
-                            .replace(/__thumb_url__/g, images[i].thumb_url)
-                            .replace(/__width__/g, images[i].width)
-                            .replace(/__height__/g, images[i].height)
-                            .replace(/__json__/g, JSON.stringify(images[i]))
-                            .replace(/<img/g,"<video")
-                            
-                        }
-                        else if (checkstr.match(check2)){
-                            html += $('#images-item-tpl').html()
-                            .replace(/__id__/g, images[i].id)
-                            .replace(/__name__/g, images[i].filename)
-                            .replace(/__human_date__/g, images[i].human_date)
-                            .replace(/__date__/g, images[i].date)
-                            .replace(/__url__/g, images[i].url)
-                            .replace(/__thumb_url__/g, images[i].thumb_url)
-                            .replace(/__width__/g, images[i].width)
-                            .replace(/__height__/g, images[i].height)
-                            .replace(/__json__/g, JSON.stringify(images[i]))
-                            .replace(/<img/g,"<video")
-                            
-                        }
-                        else if (checkstr.match(check3)){
-                            html += $('#images-item-tpl').html()
-                            .replace(/__id__/g, images[i].id)
-                            .replace(/__name__/g, images[i].filename)
-                            .replace(/__human_date__/g, images[i].human_date)
-                            .replace(/__date__/g, images[i].date)
-                            .replace(/__url__/g, images[i].url)
-                            .replace(/__thumb_url__/g, images[i].thumb_url)
-                            .replace(/__width__/g, images[i].width)
-                            .replace(/__height__/g, images[i].height)
-                            .replace(/__json__/g, JSON.stringify(images[i]))
-                            .replace(/<img/g,"<audio")
-                            
-                        }
-                        else if (checkstr.match(check4)){
-                            html += $('#images-item-tpl').html()
-                            .replace(/__id__/g, images[i].id)
-                            .replace(/__name__/g, images[i].filename)
-                            .replace(/__human_date__/g, images[i].human_date)
-                            .replace(/__date__/g, images[i].date)
-                            .replace(/__url__/g, images[i].url)
-                            .replace(/__thumb_url__/g, images[i].thumb_url)
-                            .replace(/__width__/g, images[i].width)
-                            .replace(/__height__/g, images[i].height)
-                            .replace(/__json__/g, JSON.stringify(images[i]))
-                            .replace(/<img/g,"<audio")
-                            
-                        }
-                        else if (checkstr.match(check5)){
-                            html += $('#images-item-tpl').html()
-                            .replace(/__id__/g, images[i].id)
-                            .replace(/__name__/g, images[i].filename)
-                            .replace(/__human_date__/g, images[i].human_date)
-                            .replace(/__date__/g, images[i].date)
-                            .replace(/__url__/g, images[i].url)
-                            .replace(/__thumb_url__/g, images[i].thumb_url)
-                            .replace(/__width__/g, images[i].width)
-                            .replace(/__height__/g, images[i].height)
-                            .replace(/__json__/g, JSON.stringify(images[i]))
-                            .replace(/<img/g,"<audio")
-                            
-                        }
-                        else{
                         html += $('#images-item-tpl').html()
                             .replace(/__id__/g, images[i].id)
                             .replace(/__name__/g, images[i].filename)
@@ -354,9 +270,7 @@
                             .replace(/__width__/g, images[i].width)
                             .replace(/__height__/g, images[i].height)
                             .replace(/__json__/g, JSON.stringify(images[i]))
-                        }
                     }
-
                     $photos.append(html);
                     ds.setSelectables($photos.find(IMAGES_ITEM));
                 },
@@ -367,7 +281,6 @@
                         if ($photos.hasClass('reset')) {
                             $photos.justifiedGallery(gridConfigs).removeClass('reset');
                         }
-
                         $photos.justifiedGallery('norewind')
                         viewer.update();
                     } else {
@@ -377,14 +290,12 @@
                     $headerTitle.text('我的图片')
                 }
             });
-
             const resetImages = (params) => {
                 $photos.addClass('reset').html('').justifiedGallery('destroy');
                 ds.clearSelection();
                 params = $.extend({page: 1}, params)
                 imagesInfinite.refresh(params);
             }
-
             const getAlbums = (options, callback) => {
                 let title = '__title__ <i class="cursor-pointer fas fa-plus text-blue-500" onclick="$(\'#album-add\').toggleClass(\'hidden\')"></i>'.replace(/__title__/g, (options || {}).title || '我的相册');
                 let content = $('#albums-container-tpl').html();
@@ -398,12 +309,10 @@
                             if (!response.status) {
                                 return toastr.error(response.message);
                             }
-
                             let albums = response.data.albums.data;
                             if (albums.length <= 0 || response.data.albums.current_page === response.data.albums.last_page) {
                                 this.finished = true;
                             }
-
                             let html = '';
                             for (const i in albums) {
                                 let item = $('#albums-item-tpl').html()
@@ -418,16 +327,12 @@
                                         .replace(/bg-gray-100/g, 'bg-blue-400')
                                         .replace(/text-gray-800/g, 'text-white')
                                 }
-
                                 html += item;
                             }
-
                             $albums.append(html);
-
                             callback && callback.call(this, $albums.get(0));
                         }
                     });
-
                     $albums.off('click', '>a').on('click', '>a', function () {
                         // 如果当前已经为选中状态则清除
                         if (selectedAlbum.id === $(this).data('id')) {
@@ -439,14 +344,12 @@
                         drawer.close();
                         ds.clearSelection();
                     });
-
                     const resetAlbums = () => {
                         $albums.find('>a').remove();
                         $albums.find(CREATE_ID).addClass('hidden');
                         $albums.find(UPDATE_ID).remove();
                         albumsInfinite.refresh({page: 1});
                     }
-
                     $albums.off('click', '.update').on('click', '.update', function (e) {
                         e.stopPropagation();
                         let selectedId = $albums.find(UPDATE_ID).data('id');
@@ -460,7 +363,6 @@
                             );
                         }
                     });
-
                     $albums.off('click', '.delete').on('click', '.delete', function (e) {
                         e.stopPropagation();
                         Swal.fire({
@@ -486,7 +388,6 @@
                             }
                         })
                     });
-
                     // confirm create
                     $albums.off('submit', CREATE_ID + ' form').on('submit', CREATE_ID + ' form', function (e) {
                         e.preventDefault();
@@ -501,7 +402,6 @@
                             }
                         });
                     });
-
                     // confirm update
                     $albums.off('submit', UPDATE_ID + ' form').on('submit', UPDATE_ID + ' form', function (e) {
                         e.preventDefault();
@@ -521,23 +421,19 @@
                     });
                 });
             }
-
             const setOrderBy = function (sort) {
                 resetImages({page: 1, order: sort})
                 $('#order span').text({newest: '最新', earliest: '最早', utmost: '最大', least: '最小'}[sort]);
             };
-
             const setPermission = function (permission) {
                 resetImages({page: 1, permission: permission})
                 $('#permission span').text({public: '公开', private: '私有', all: '全部'}[permission]);
             };
-
             $('#search').keydown(function (e) {
                 if (e.keyCode === 13) {
                     resetImages({page: 1, keyword: $(this).val()});
                 }
             });
-
             $(document).keydown(e => {
                 if (e.keyCode === 65 && (e.altKey || e.metaKey)) {
                     e.preventDefault();
@@ -550,7 +446,6 @@
                 area: $(IMAGES_SCROLL).get(0),
                 keyboardDrag: false,
             });
-
             const bindOperates = () => {
                 let selected = ds.getSelection();
                 if (selected.length) {
@@ -574,19 +469,16 @@
                 }
                 $(operates.map(item => `[data-operate=${item}]`).toString()).css('display', 'block');
             };
-
             ds.subscribe('predragstart', ({ event }) => {
                 if (utils.isMobile()) {
                     ds.stop();
                 }
-
                 if (! $(event.target).hasClass('dragselect')) {
                     ds.break();
                 }
             });
             ds.subscribe('elementselect', _ => bindOperates());
             ds.subscribe('elementunselect', _ => bindOperates());
-
             $photos.on('click', '.image-selector', function () {
                 ds.toggleSelection($(this).closest('a'));
                 bindOperates();
@@ -600,7 +492,6 @@
                 preventDoubleContext: true,
                 compress: false
             });
-
             new ClipboardJS('.dropdown-menu li a.copy', {
                 text: function(trigger) {
                     return $(trigger).data('copy-value');
@@ -610,7 +501,6 @@
             }).on('error', _ => {
                 toastr.warning('复制失败')
             });
-
             const methods = {
                 movements() {
                     getAlbums({title: '选择相册'}, e => {
@@ -904,11 +794,9 @@
             $('[data-operate]').click(function () {
                 let operate = $(this).data('operate');
                 let selected = ds.getSelection();
-
                 if (selected.length === 0) {
                     return false;
                 }
-
                 switch (operate) {
                     case 'refresh': // 刷新
                         resetImages();
