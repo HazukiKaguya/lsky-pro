@@ -35,7 +35,6 @@
                             <span class="bg-white rounded-md text-sm px-1 py-0">Sound</span>
                         @endif
                     </div>
-                    //针对tif,psd 使用缩略图，其他均使用源文件
                     @if($image->extension === 'webm')
                     <video class="w-full h-36 object-cover transition-all group-hover:brightness-50" src="{{ $image->url }} " controls/>
                     @endif
