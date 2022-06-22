@@ -1,3 +1,9 @@
+增加webm、mp4、mp3、ogg上传，仅tiff、tif、psd使用缓存的魔改自用分支
+
+目前还未修改，请移步2.0（增加webm、mp4上传，新一些）或者2.0origin（增加webm、mp4上传，仅tiff、tif、psd使用缓存，老一些），之后修改时会将两个合并
+
+
+
 <img align="right" width="100" src="https://avatars.githubusercontent.com/u/100565733?s=200" alt="Lsky Pro Logo"/>
 
 <h1 align="left"><a href="https://www.lsky.pro">Lsky Pro</a></h1>
