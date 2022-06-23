@@ -410,7 +410,8 @@
                     .replace(/__permission__/g, image.permission === {{ \App\Enums\ImagePermission::Public }} ? '<i class="fas fa-eye text-red-500"></i> 公开' : '<i class="fas fa-eye-slash text-green-500"></i> 私有')
                     .replace(/__is_unhealthy__/g, image.is_unhealthy ? '<span class="text-red-500"><i class="fas fa-exclamation-triangle"></i> 是</span>' : '否')
                     .replace(/__uploaded_ip__/g, image.uploaded_ip)
-                    // 检查是否为视频或者无法预览的psd、tif
+                    .replace(/__created_at__/g, image.created_at);
+                    // 检查是否为视频与音频或无法预览的psd、tif
                     let checkstr=image.url;
                     let check1="webm";
                     let check2="mp4";
@@ -420,66 +421,66 @@
                     let check6="ogg";
                     let check7="wav";
                     let check8="tiff";
-                    if (checkstr.match(check1)){
+                if (checkstr.match(check1)){
                         let html=htm
                         .replace(/__url__/g, image.url)
                         .replace(/<img/g, "<video")
                         .replace(/class="w-full object-center object-cover">/g, "class=\"w-full object-center object-cover\" controls/>");
-                    $('#modal-content').html(html);
-                    modal.open('content-modal')
-                    }
-                    else if(checkstr.match(check2)){
+                $('#modal-content').html(html);
+                modal.open('content-modal')
+                }
+                else if(checkstr.match(check2)){
                         let html=htm
                         .replace(/__url__/g, image.url)
                         .replace(/<img/g, "<video")
                         .replace(/class="w-full object-center object-cover">/g, "class=\"w-full object-center object-cover\" controls/>");
-                    $('#modal-content').html(html);
-                    modal.open('content-modal')
-                    }
-                    else if(checkstr.match(check3)){
+                $('#modal-content').html(html);
+                modal.open('content-modal')
+                }
+                else if(checkstr.match(check3)){
                         let html=htm.replace(/__url__/g, "/thumbnails/"+image.md5+".png");
-                    $('#modal-content').html(html);
-                    modal.open('content-modal')
-                    }
-                    else if(checkstr.match(check4)){
+                $('#modal-content').html(html);
+                modal.open('content-modal')
+                }
+                else if(checkstr.match(check4)){
                         let html=htm.replace(/__url__/g, "/thumbnails/"+image.md5+".png");
-                    $('#modal-content').html(html);
-                    modal.open('content-modal')
-                    }
-                    else if(checkstr.match(check8)){
+                $('#modal-content').html(html);
+                modal.open('content-modal')
+                }
+                else if(checkstr.match(check8)){
                         let html=htm.replace(/__url__/g, "/thumbnails/"+image.md5+".png");
-                    $('#modal-content').html(html);
-                    modal.open('content-modal')
-                    }
-                    else if(checkstr.match(check5)){
+                $('#modal-content').html(html);
+                modal.open('content-modal')
+                }
+                else if(checkstr.match(check5)){
                         let html=htm
                         .replace(/__url__/g, image.url)
                         .replace(/<img/g, "<audio")
                         .replace(/class="w-full object-center object-cover">/g, "class=\"w-full object-center object-cover\" controls/>");
-                    $('#modal-content').html(html);
-                    modal.open('content-modal')
-                    }
+                $('#modal-content').html(html);
+                modal.open('content-modal')
+                }
                     else if(checkstr.match(check6)){
                         let html=htm
                         .replace(/__url__/g, image.url)
                         .replace(/<img/g, "<audio")
                         .replace(/class="w-full object-center object-cover">/g, "class=\"w-full object-center object-cover\" controls/>");
-                    $('#modal-content').html(html);
-                    modal.open('content-modal')
-                    }
-                    else if(checkstr.match(check7)){
+                $('#modal-content').html(html);
+                modal.open('content-modal')
+                }
+                else if(checkstr.match(check7)){
                         let html=htm
                         .replace(/__url__/g, image.url)
                         .replace(/<img/g, "<audio")
                         .replace(/class="w-full object-center object-cover">/g, "class=\"w-full object-center object-cover\" controls/>");
-                    $('#modal-content').html(html);
-                    modal.open('content-modal')
-                    }
-                    else{
+                $('#modal-content').html(html);
+                modal.open('content-modal')
+                }
+                else{
                         let html = htm.replace(/__url__/g, image.url);
-                    $('#modal-content').html(html);
-                    modal.open('content-modal')
-                    }
+                $('#modal-content').html(html);
+                modal.open('content-modal')
+                }
             });
 
             $('.item-user').click(function (e) {
