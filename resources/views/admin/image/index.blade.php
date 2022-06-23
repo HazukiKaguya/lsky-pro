@@ -34,6 +34,9 @@
                         @if($image->extension === 'ogg')
                             <span class="bg-white rounded-md text-sm px-1 py-0">Sound</span>
                         @endif
+                        @if($image->extension === 'wav')
+                            <span class="bg-white rounded-md text-sm px-1 py-0">Sound</span>
+                        @endif
                     </div>
                     @if($image->extension === 'webm')
                     <video class="w-full h-36 object-cover transition-all group-hover:brightness-50" src="{{ $image->url }} " controls/>
@@ -42,20 +45,21 @@
                     <video class="w-full h-36 object-cover transition-all group-hover:brightness-50" src="{{ $image->url }} " controls/>
                     @endif
                     @if($image->extension === 'mp3')
-                    <video class="w-full h-36 object-cover transition-all group-hover:brightness-50" src="{{ $image->url }} " controls/>
+                    <audio class="w-full h-36 object-cover transition-all group-hover:brightness-50" src="{{ $image->url }} " controls/>
                     @endif
                     @if($image->extension === 'ogg')
-                    <video class="w-full h-36 object-cover transition-all group-hover:brightness-50" src="{{ $image->url }} " controls/>
+                    <audio class="w-full h-36 object-cover transition-all group-hover:brightness-50" src="{{ $image->url }} " controls/>
                     @endif
-                    <img class="w-full h-36 object-cover transition-all group-hover:brightness-50" 
+                    @if($image->extension === 'wav')
+                    <audio class="w-full h-36 object-cover transition-all group-hover:brightness-50" src="{{ $image->url }} " controls/>
+                    @endif
                     @if($image->extension === 'tif')
-                    src="{{ $image->thumb_url }}"
-                    @elseif($image->extension === 'psd')
-                    src="{{ $image->thumb_url }}"
-                    @else
-                    src="{{ $image->url }}"
+                    <img class="w-full h-36 object-cover transition-all group-hover:brightness-50" src="{{ $image->thumb_url }}">
                     @endif
-                    >
+                    @if($image->extension === 'psd')
+                    <img class="w-full h-36 object-cover transition-all group-hover:brightness-50" src="{{ $image->thumb_url }}">
+                    @endif
+                    <img class="w-full h-36 object-cover transition-all group-hover:brightness-50" src="{{ $image->url }}">
 
                     <div class="absolute top-2 right-2 space-x-1 hidden group-hover:flex">
                         <i data-id="{{ $image->id }}" class="delete fas fa-trash text-red-500 w-4 h-4"></i>
