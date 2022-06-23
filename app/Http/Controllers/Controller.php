@@ -161,11 +161,11 @@ class Controller extends BaseController
                 $contents = $image->filesystem()->read($image->pathname);
                 $configs = collect($image->group?->configs->get(GroupConfigKey::WatermarkConfigs));
 
-                // 是否启用了水印功能，跳过gif和ico图片,webm和mp4视频，mp3和ogg音频
+                // 是否启用了水印功能，跳过gif和ico图片,webm和mp4视频，mp3、ogg和wav音频
                 if (
                     $image->group?->configs->get(GroupConfigKey::IsEnableWatermark) &&
                     $configs->get('mode', Mode::Overlay) == Mode::Dynamic &&
-                    ! in_array($image->extension, ['ico', 'gif', 'webm', 'mp4', 'mp3', 'ogg'])
+                    ! in_array($image->extension, ['ico', 'gif', 'webm', 'mp4', 'mp3', 'ogg', 'wav'])
                 ) {
                     $contents = $service->stickWatermark($contents, $configs)->encode()->getEncoded();
                 }
