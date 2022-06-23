@@ -13,22 +13,25 @@
                 <div class="grid-item">
                     <div class="relative bg-white rounded-md overflow-hidden">
                         @if($image->extension === 'gif')
-                            <span class="absolute top-1 right-1 z-[1] bg-white rounded-md text-sm px-1 py-0">gif</span>
+                            <span class="absolute top-1 right-1 z-[1] bg-white rounded-md text-sm px-1 py-0">Gif</span>
+                        @endif
+                        @if($image->extension === 'psd')
+                            <span class="absolute top-1 right-1 z-[1] bg-white rounded-md text-sm px-1 py-0">Psd</span>
                         @endif
                         @if($image->extension === 'webm')
-                            <span class="absolute top-1 right-1 z-[1] bg-white rounded-md text-sm px-1 py-0">webm</span>
+                            <span class="absolute top-1 right-1 z-[1] bg-white rounded-md text-sm px-1 py-0">Webm</span>
                         @endif    
                         @if($image->extension === 'mp4')
-                            <span class="absolute top-1 right-1 z-[1] bg-white rounded-md text-sm px-1 py-0">mp4</span>
+                            <span class="absolute top-1 right-1 z-[1] bg-white rounded-md text-sm px-1 py-0">Mp4</span>
                         @endif
                         @if($image->extension === 'mp3')
-                            <span class="absolute top-1 right-1 z-[1] bg-white rounded-md text-sm px-1 py-0">mp3</span>
+                            <span class="absolute top-1 right-1 z-[1] bg-white rounded-md text-sm px-1 py-0">Mp3</span>
                         @endif    
                         @if($image->extension === 'ogg')
-                            <span class="absolute top-1 right-1 z-[1] bg-white rounded-md text-sm px-1 py-0">ogg</span>
+                            <span class="absolute top-1 right-1 z-[1] bg-white rounded-md text-sm px-1 py-0">Ogg</span>
                         @endif
                         @if($image->extension === 'wav')
-                            <span class="absolute top-1 right-1 z-[1] bg-white rounded-md text-sm px-1 py-0">paf</span>
+                            <span class="absolute top-1 right-1 z-[1] bg-white rounded-md text-sm px-1 py-0">Paf</span>
                         @endif
                         <a target="_blank" href="{{ $image->url }}">
                             <div class="relative overflow-hidden w-full h-32">
