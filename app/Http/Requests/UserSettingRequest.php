@@ -38,7 +38,7 @@ class UserSettingRequest extends FormRequest
             'configs.default_strategy.numeric' => '默认策略选择错误',
             'configs.default_permission.required' => '权限值选择错误',
             'configs.default_permission.in' => '权限值不正确',
-            'configs.pasted_action.required' => '粘贴动作值选择错误',
+            'configs.pasted_action.required' => '粘贴动作值选择错误，请在设置页面中勾选【图片粘贴后动作】选项的任意项后再保存。',
             'configs.pasted_action.in' => '粘贴动作值不正确',
             'configs.is_auto_clear_preview.boolean' => '是否自动清除预览选择错误'
         ];
