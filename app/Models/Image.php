@@ -200,14 +200,60 @@ class Image extends Model
 
     public function links(): Attribute
     {
-        return new Attribute(fn() => collect([
+        if("{$this->extension}"=='webm'){
+            return new Attribute(fn() => collect([
+                'url' => $this->url,
+                'html' => "&lt;video src=\"{$this->url}\" alt=\"{$this->origin_name}\" title=\"{$this->origin_name}\" controls /&gt;",
+                'bbcode' => "[video]{$this->url}[/video]",
+                'markdown' => "![{$this->origin_name}]({$this->url})",
+                'markdown_with_link' => "[![{$this->origin_name}]({$this->url})]({$this->url})",
+                'thumbnail_url' => $this->thumb_url,
+            ]));}
+       else if("{$this->extension}"=='mp4'){
+            return new Attribute(fn() => collect([
+                'url' => $this->url,
+                'html' => "&lt;video src=\"{$this->url}\" alt=\"{$this->origin_name}\" title=\"{$this->origin_name}\" controls /&gt;",
+                'bbcode' => "[video]{$this->url}[/video]",
+                'markdown' => "![{$this->origin_name}]({$this->url})",
+                'markdown_with_link' => "[![{$this->origin_name}]({$this->url})]({$this->url})",
+                'thumbnail_url' => $this->thumb_url,
+            ]));}
+        else if("{$this->extension}"=='mp3'){
+            return new Attribute(fn() => collect([
+                'url' => $this->url,
+                'html' => "&lt;audio src=\"{$this->url}\" alt=\"{$this->origin_name}\" title=\"{$this->origin_name}\" controls /&gt;",
+                'bbcode' => "[audio]{$this->url}[/audio]",
+                'markdown' => "![{$this->origin_name}]({$this->url})",
+                'markdown_with_link' => "[![{$this->origin_name}]({$this->url})]({$this->url})",
+                'thumbnail_url' => $this->thumb_url,
+            ]));}
+        else if("{$this->extension}"=='ogg'){
+            return new Attribute(fn() => collect([
+                'url' => $this->url,
+                'html' => "&lt;audio src=\"{$this->url}\" alt=\"{$this->origin_name}\" title=\"{$this->origin_name}\" controls /&gt;",
+                'bbcode' => "[audio]{$this->url}[/audio]",
+                'markdown' => "![{$this->origin_name}]({$this->url})",
+                'markdown_with_link' => "[![{$this->origin_name}]({$this->url})]({$this->url})",
+                'thumbnail_url' => $this->thumb_url,
+            ]));}
+        else if("{$this->extension}"=='wav'){
+            return new Attribute(fn() => collect([
+                'url' => $this->url,
+                'html' => "&lt;audio src=\"{$this->url}\" alt=\"{$this->origin_name}\" title=\"{$this->origin_name}\" controls /&gt;",
+                'bbcode' => "[audio]{$this->url}[/audio]",
+                'markdown' => "![{$this->origin_name}]({$this->url})",
+                'markdown_with_link' => "[![{$this->origin_name}]({$this->url})]({$this->url})",
+                'thumbnail_url' => $this->thumb_url,
+            ]));}
+        else{
+            return new Attribute(fn() => collect([
             'url' => $this->url,
             'html' => "&lt;img src=\"{$this->url}\" alt=\"{$this->origin_name}\" title=\"{$this->origin_name}\" /&gt;",
             'bbcode' => "[img]{$this->url}[/img]",
             'markdown' => "![{$this->origin_name}]({$this->url})",
             'markdown_with_link' => "[![{$this->origin_name}]({$this->url})]({$this->url})",
             'thumbnail_url' => $this->thumb_url,
-        ]));
+        ]));}
     }
 
     public function filesystem(): Filesystem
