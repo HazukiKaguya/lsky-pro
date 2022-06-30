@@ -1,5 +1,5 @@
 @section('title', '我的图片')
-
+        
 @push('styles')
     <link rel="stylesheet" href="{{ asset('css/justified-gallery/justifiedGallery.min.css') }}">
     <link rel="stylesheet" href="{{ asset('css/viewer-js/viewer.min.css') }}">
@@ -99,13 +99,13 @@
                     <i class="fas fa-check-circle block rounded-full bg-white text-white border border-gray-500"></i>
                 </div>
             </div>
-            <div class="image-mask absolute left-0 right-0 bottom-0 h-20 z-[1] bg-gradient-to-t from-black" onclick="$(this).siblings('img').trigger('click')">
-                <div class="absolute left-2 bottom-2 text-white z-[2] w-[90%]">
+            <div class="image-mask absolute left-0 right-0 top-0 h-20 z-[1] " onclick="$(this).siblings('img').trigger('click')" style="background-image: linear-gradient(to top, rgba(255,255,255,0), rgba(0,0,0,1));">
+                <div class="absolute left-2 text-white z-[2] w-[90%]">
                     <p class="text-sm truncate filename" title="__name__">__name__</p>
                     <p class="text-xs date" title="__human_date__">__date__</p>
                 </div>
             </div>
-            <img alt="__name__" data-original="__url__" src="__thumb_url__" width="__width__" height="__height__">
+            <__ext__ alt="__name__" data-original="__url__" src="__thumb_url__" width="__width__" height="__height__" controls>
         </a>
     </script>
 
@@ -255,12 +255,41 @@
                         return toastr.error(response.message);
                     }
                     let images = response.data.images.data;
+                    let image = $(this).data('json');
                     if (images.length <= 0 || response.data.images.current_page === response.data.images.last_page) {
                         this.finished = true;
                     }
                     let html = '';
                     for (const i in images) {
-                        html += $('#images-item-tpl').html()
+                        let checkstr=images[i].url;
+                        if     (checkstr.match(/webm/)){
+                            html += $('#images-item-tpl').html()
+                            .replace(/__id__/g, images[i].id)
+                            .replace(/__name__/g, images[i].filename)
+                            .replace(/__human_date__/g, images[i].human_date)
+                            .replace(/__date__/g, images[i].date)
+                            .replace(/__url__/g, images[i].url)
+                            .replace(/__thumb_url__/g, images[i].thumb_url)
+                            .replace(/__width__/g, '100%')
+                            .replace(/__height__/g, images[i].height)
+                            .replace(/__json__/g, JSON.stringify(images[i]))
+                            .replace(/__ext__/g, 'video');
+                        }
+                        else if(checkstr.match(/mp4/)){
+                            html += $('#images-item-tpl').html()
+                            .replace(/__id__/g, images[i].id)
+                            .replace(/__name__/g, images[i].filename)
+                            .replace(/__human_date__/g, images[i].human_date)
+                            .replace(/__date__/g, images[i].date)
+                            .replace(/__url__/g, images[i].url)
+                            .replace(/__thumb_url__/g, images[i].thumb_url)
+                            .replace(/__width__/g, '100%')
+                            .replace(/__height__/g, images[i].height)
+                            .replace(/__json__/g, JSON.stringify(images[i]))
+                            .replace(/__ext__/g, 'video');
+                        }
+                        else if(checkstr.match(/mp3/)){
+                            html += $('#images-item-tpl').html()
                             .replace(/__id__/g, images[i].id)
                             .replace(/__name__/g, images[i].filename)
                             .replace(/__human_date__/g, images[i].human_date)
@@ -270,7 +299,50 @@
                             .replace(/__width__/g, images[i].width)
                             .replace(/__height__/g, images[i].height)
                             .replace(/__json__/g, JSON.stringify(images[i]))
+                            .replace(/__ext__/g, 'video');
+                        }
+                        else if(checkstr.match(/ogg/)){
+                            html += $('#images-item-tpl').html()
+                            .replace(/__id__/g, images[i].id)
+                            .replace(/__name__/g, images[i].filename)
+                            .replace(/__human_date__/g, images[i].human_date)
+                            .replace(/__date__/g, images[i].date)
+                            .replace(/__url__/g, images[i].url)
+                            .replace(/__thumb_url__/g, images[i].thumb_url)
+                            .replace(/__width__/g, images[i].width)
+                            .replace(/__height__/g, images[i].height)
+                            .replace(/__json__/g, JSON.stringify(images[i]))
+                            .replace(/__ext__/g, 'video');
+                        }
+                        else if(checkstr.match(/wav/)){
+                            html += $('#images-item-tpl').html()
+                            .replace(/__id__/g, images[i].id)
+                            .replace(/__name__/g, images[i].filename)
+                            .replace(/__human_date__/g, images[i].human_date)
+                            .replace(/__date__/g, images[i].date)
+                            .replace(/__url__/g, images[i].url)
+                            .replace(/__thumb_url__/g, images[i].thumb_url)
+                            .replace(/__width__/g, images[i].width)
+                            .replace(/__height__/g, images[i].height)
+                            .replace(/__json__/g, JSON.stringify(images[i]))
+                            .replace(/__ext__/g, 'video');
+                        }
+                        else{
+                            html += $('#images-item-tpl').html()
+                            .replace(/__id__/g, images[i].id)
+                            .replace(/__name__/g, images[i].filename)
+                            .replace(/__human_date__/g, images[i].human_date)
+                            .replace(/__date__/g, images[i].date)
+                            .replace(/__url__/g, images[i].url)
+                            .replace(/__thumb_url__/g, images[i].thumb_url)
+                            .replace(/__width__/g, images[i].width)
+                            .replace(/__height__/g, images[i].height)
+                            .replace(/__json__/g, JSON.stringify(images[i]))
+                            .replace(/__ext__/g, 'img')
+                        }
                     }
+                    
+                    
                     $photos.append(html);
                     ds.setSelectables($photos.find(IMAGES_ITEM));
                 },
